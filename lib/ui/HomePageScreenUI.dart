@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables
 
 import 'package:arlib_project/main.dart';
 import 'package:arlib_project/utils/AppColors.dart';
@@ -41,72 +41,71 @@ class _HomePageScreenUIState extends State<HomePageScreenUI> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(title: Text("Home Page"), backgroundColor: AppColors.primaryColor, elevation: 0),
-      body: BlocConsumer<DiseaseBloc, DiseaseState>(
-        listener: (context, state) {
-          if (state is DiseaseLoadFailure) {
-            AppCommonFunction.flutterToast(state.error.toString(), false);
-          } else if (state is DiseaseLoadSuccess) {
-            //print("className.length  ::  ${state.classKey.length.toString()}");
-          }
-        },
-        builder: (context, state) {
-          if (state is DiseaseInProgress)
-            return AppCommonFunction.circularIndicator();
-          else if (state is DiseaseLoadSuccess)
-            return state.associatedKey!.isEmpty
-                ? AppCommonFunction.noDataFound()
-                : Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: Get.width,
-                          padding: EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Txt("Welcome, ${box.get("id")}", fontSize: 20),
-                              Txt(" ${DateFormat('dd-MM-yy hh:mm a').format(box.get("time"))}", fontSize: 18),
-                            ],
+      child: Scaffold(
+        appBar: AppBar(title: Text("Home Page"), backgroundColor: AppColors.primaryColor, elevation: 0),
+        body: BlocConsumer<DiseaseBloc, DiseaseState>(
+          listener: (context, state) {
+            if (state is DiseaseLoadFailure) {
+              AppCommonFunction.flutterToast(state.error.toString(), false);
+            } else if (state is DiseaseLoadSuccess) {
+              //AppCommonFunction.flutterToast("Success", true);
+            }
+          },
+          builder: (context, state) {
+            if (state is DiseaseInProgress)
+              return AppCommonFunction.circularIndicator();
+            else if (state is DiseaseLoadSuccess)
+              return state.associatedKey!.isEmpty
+                  ? AppCommonFunction.noDataFound()
+                  : Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: Get.width,
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Txt("Welcome, ${box.get("id")}", fontSize: 20),
+                                Txt(" ${DateFormat('dd-MM-yy hh:mm a').format(box.get("time"))}", fontSize: 18),
+                              ],
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: state.associatedKey!.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                width: Get.width,
-                                padding: EdgeInsets.all(8.0),
-                                child: Card(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Column(
-                                      children: [
-                                        Txt("Name:  ${state.data2![state.associatedKey![index]][0]['name']}",
-                                            maxLines: 5),
-                                        Txt("Dose: ${state.data2![state.associatedKey![index]][0]['dose']}"),
-                                        Txt("Strength: ${state.data2![state.associatedKey![index]][0]['strength']}"),
-                                      ],
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: state.associatedKey!.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  width: Get.width,
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Card(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          Txt("Name:  ${state.data2![state.associatedKey![index]][0]['name']}", maxLines: 5),
+                                          Txt("Dose: ${state.data2![state.associatedKey![index]][0]['dose']}"),
+                                          Txt("Strength: ${state.data2![state.associatedKey![index]][0]['strength']}"),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-          else
-            return AppCommonFunction.circularIndicator();
-        },
+                        ],
+                      ),
+                    );
+            else
+              return AppCommonFunction.circularIndicator();
+          },
+        ),
       ),
-    ));
+    );
   }
 }
-
 
 //https://pastebin.com/jKVv22p8
 //http://mocky.io/

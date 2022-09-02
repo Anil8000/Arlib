@@ -24,8 +24,8 @@ class LoginScreenUI extends StatefulWidget {
 }
 
 class _LoginScreenUIState extends State<LoginScreenUI> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController(text: "anil@gmail.com");
+  TextEditingController passwordController = TextEditingController(text: "o1in2woindoe");
   final formKey = GlobalKey<FormState>();
   var userDB;
   var box;

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, prefer_const_constructors
+// ignore_for_file: prefer_interpolation_to_compose_strings, prefer_const_constructors, use_key_in_widget_constructors
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,17 +33,18 @@ class _SplashScreenUIState extends State<SplashScreenUI> with TickerProviderStat
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        decoration: AppCommonFunction.splashBackground(),
-        child: Center(
-          child: Text(
-            AppString.APP_NAME,
-            style: TextStyle(fontSize: 34.0, color: AppColors.bgColor, fontWeight: FontWeight.w600),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: AppCommonFunction.splashBackground(),
+          child: Center(
+            child: Text(
+              AppString.APP_NAME,
+              style: TextStyle(fontSize: 34.0, color: AppColors.bgColor, fontWeight: FontWeight.w600),
+            ),
           ),
         ),
-      )),
+      ),
     );
   }
 }
